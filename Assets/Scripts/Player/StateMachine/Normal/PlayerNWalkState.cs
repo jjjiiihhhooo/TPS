@@ -14,7 +14,7 @@ public class PlayerNWalkState : PlayerNormalState
 
     public override void Update(Player player)
     {
-        if (player.InputVec == Vector2.zero)
+        if (player.inputVec == Vector2.zero)
             player.SetState(player.normalIdle);
         else
             Move(player);
@@ -23,7 +23,7 @@ public class PlayerNWalkState : PlayerNormalState
 
     private void Move(Player player)
     {
-        Vector3 move = new Vector3(player.InputVec.x, 0f, player.InputVec.y);
+        Vector3 move = new Vector3(player.inputVec.x, 0f, player.inputVec.y);
 
         move = player.transform.TransformDirection(move);
 
@@ -35,7 +35,7 @@ public class PlayerNWalkState : PlayerNormalState
             Rotate(player);
     }
 
-    private void Rotate(Player player)
+    protected override void Rotate(Player player)
     {
         Vector3 lookDir = player.cam.forward;
         lookDir.y = 0;

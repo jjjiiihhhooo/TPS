@@ -13,7 +13,7 @@ public class PlayerNIdleState : PlayerNormalState
     {
         base.Update(player);
 
-        if (player.InputVec != Vector2.zero)
+        if (player.inputVec != Vector2.zero)
         {
             if(player.isBattle) player.SetState(player.battleWalk);
             else player.SetState(player.normalWalk);
