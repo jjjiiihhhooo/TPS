@@ -17,8 +17,14 @@ public class MeshTrail : MonoBehaviour
     public float shaderVarRate = 0.1f;
     public float shaderVarRefreshRate = 0.05f;
 
+    [Header("Dissolve")]
+    [SerializeField] private float noiseStrength = 0.25f;
+    [SerializeField] private float objectHeight = 1.0f;
+    [SerializeField] private Material dissolveMat;
+
     private SkinnedMeshRenderer skinnedMeshRenderer;
     private GameObject trailObject;
+    private GameObject dissolveObject;
     private Mesh mesh;
     private MeshFilter meshFilter;
     private MeshRenderer meshRenderer;
@@ -41,6 +47,7 @@ public class MeshTrail : MonoBehaviour
         meshFilter = trailObject.AddComponent<MeshFilter>();
         meshRenderer.material = mat;
 
+        meshRenderer.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
         mesh = new Mesh();
     }
 
@@ -49,6 +56,12 @@ public class MeshTrail : MonoBehaviour
         trailObject.transform.SetPositionAndRotation(spawnTransform.position, spawnTransform.rotation);
         skinnedMeshRenderer.BakeMesh(mesh);
         meshFilter.mesh = mesh;
+
+        dissolveObject = Instantiate(trailObject);
+        dissolveObject.GetComponent<MeshRenderer>().material = dissolveMat;
+        dissolveObject.AddComponent<TrailDissolve>();
+
+        dissolveObject.transform.SetPositionAndRotation(spawnTransform.position, spawnTransform.rotation);
 
         if(trailCor != null)
         {

@@ -25,7 +25,8 @@ public class Player : MonoBehaviour
 
     [SerializeField] private float curHp;
     [SerializeField] private float maxHp;
-    [SerializeField] private float speed = 5;
+    [SerializeField] private float normalSpeed = 3;
+    [SerializeField] private float battleSpeed = 5;
     [SerializeField] private float dashSpeed = 60;
     [SerializeField] private float rotSpeed = 2f;
     [SerializeField] private float dashToNormalSpeed;
@@ -34,6 +35,7 @@ public class Player : MonoBehaviour
 
     private float curSpeed;
 
+    public float speed = 5;
     public bool isBattle;
     public Vector2 inputVec;
     public Animator animator;
@@ -42,6 +44,8 @@ public class Player : MonoBehaviour
     
     [HideInInspector] public PlayerState state;
 
+    public float NormalSpeed { get => normalSpeed; }
+    public float BattleSpeed { get => battleSpeed; }
     public float Speed { get => curSpeed; }
     public float RotSpeed { get => rotSpeed; }
     public float YVelocity { get => yVelocity; set => value = yVelocity; }
@@ -88,13 +92,13 @@ public class Player : MonoBehaviour
 
     private void DashToNormalSpeed()
     {
-        if(curSpeed > 5)
+        if(curSpeed > speed)
         {
             curSpeed -= dashToNormalSpeed;
         }
         else
         {
-            curSpeed = 5;
+            curSpeed = speed;
         }
     }
 

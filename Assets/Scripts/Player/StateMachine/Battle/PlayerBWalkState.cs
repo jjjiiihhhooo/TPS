@@ -7,6 +7,8 @@ public class PlayerBWalkState : PlayerBattleState
     public override void Enter(Player player)
     {
         base.Enter(player);
+        player.speed = player.BattleSpeed;
+        player.YVelocity = 0f;
         player.animator.SetBool("Walk", true);
     }
 
