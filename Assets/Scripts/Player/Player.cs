@@ -13,12 +13,10 @@ public class Player : MonoBehaviour
 
     [HideInInspector] public PlayerNIdleState normalIdle;
     [HideInInspector] public PlayerNWalkState normalWalk;
-    [HideInInspector] public PlayerNDashState normalDash;
     [HideInInspector] public PlayerNormalToBattle normalToBattle;
 
     [HideInInspector] public PlayerBIdleState battleIdle;
     [HideInInspector] public PlayerBWalkState battleWalk;
-    [HideInInspector] public PlayerBDashState battleDash;
     [HideInInspector] public PlayerBattleToNormal battleToNormal;
 
     #endregion
@@ -28,8 +26,13 @@ public class Player : MonoBehaviour
     [SerializeField] private float curHp;
     [SerializeField] private float maxHp;
     [SerializeField] private float speed = 5;
+    [SerializeField] private float dashSpeed = 60;
     [SerializeField] private float rotSpeed = 2f;
+    [SerializeField] private float dashToNormalSpeed;
     [SerializeField] private float yVelocity;
+    [SerializeField] private MeshTrail trail;
+
+    private float curSpeed;
 
     public bool isBattle;
     public Vector2 inputVec;
@@ -39,7 +42,7 @@ public class Player : MonoBehaviour
     
     [HideInInspector] public PlayerState state;
 
-    public float Speed { get => speed; }
+    public float Speed { get => curSpeed; }
     public float RotSpeed { get => rotSpeed; }
     public float YVelocity { get => yVelocity; set => value = yVelocity; }
 
@@ -63,16 +66,15 @@ public class Player : MonoBehaviour
 
         normalIdle = new PlayerNIdleState();
         normalWalk = new PlayerNWalkState();
-        normalDash = new PlayerNDashState();
         normalToBattle = new PlayerNormalToBattle();
 
         battleIdle = new PlayerBIdleState();
         battleWalk = new PlayerBWalkState();
-        battleDash = new PlayerBDashState();
         battleToNormal = new PlayerBattleToNormal();
         #endregion
 
         curHp = maxHp;
+        curSpeed = speed;
         state = normalIdle;
         state.Enter(this);
     }
@@ -81,6 +83,19 @@ public class Player : MonoBehaviour
     {
         state.Update(this);
         Setdir();
+        DashToNormalSpeed();
+    }
+
+    private void DashToNormalSpeed()
+    {
+        if(curSpeed > 5)
+        {
+            curSpeed -= dashToNormalSpeed;
+        }
+        else
+        {
+            curSpeed = 5;
+        }
     }
 
     private void OnMove(InputValue value)
@@ -101,7 +116,15 @@ public class Player : MonoBehaviour
 
     public void ToggleWeapon()
     {
+        if (state is PlayerBattleToNormal || state is PlayerNormalToBattle) return;
+
         if (isBattle) SetState(battleToNormal);
         else SetState(normalToBattle);
+    }
+
+    public void DashInput()
+    {
+        trail.DashTrail();
+        curSpeed = dashSpeed;
     }
 }

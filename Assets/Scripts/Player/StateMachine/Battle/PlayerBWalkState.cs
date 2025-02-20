@@ -29,6 +29,9 @@ public class PlayerBWalkState : PlayerBattleState
         move *= player.Speed;
 
         player.controller.Move(move * Time.deltaTime);
+
+        if (move != Vector3.zero)
+            Rotate(player);
     }
 
     public override void Exit(Player player)

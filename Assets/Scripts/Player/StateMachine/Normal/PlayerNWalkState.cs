@@ -35,16 +35,6 @@ public class PlayerNWalkState : PlayerNormalState
             Rotate(player);
     }
 
-    protected override void Rotate(Player player)
-    {
-        Vector3 lookDir = player.cam.forward;
-        lookDir.y = 0;
-
-        Quaternion targetRot = Quaternion.LookRotation(lookDir);
-
-        player.transform.rotation = Quaternion.Slerp(player.transform.rotation, targetRot, Time.deltaTime * player.RotSpeed);
-    }
-
     public override void Exit(Player player)
     {
         base.Exit(player);

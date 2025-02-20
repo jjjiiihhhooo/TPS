@@ -11,4 +11,11 @@ public class PlayerState : State<Player>
         player.state = this;
         Enter(player);
     }
+
+    protected virtual void Rotate(Player player)
+    {
+        Quaternion targetRot = Quaternion.Euler(0, player.cam.eulerAngles.y, 0);
+
+        player.transform.rotation = Quaternion.Slerp(player.transform.rotation, targetRot, Time.deltaTime * player.RotSpeed);
+    }
 }
