@@ -128,6 +128,7 @@ public class Player : MonoBehaviour
 
     public void DashInput()
     {
+        SoundManager.Play("Dash", false, 0.2f);
         trail.DashTrail();
         curSpeed = dashSpeed;
     }

@@ -20,6 +20,11 @@ public class InputManager : MonoBehaviour
         {
             Player.Instance.DashInput();
         }
+
+        if(Input.GetMouseButtonDown(0))
+        {
+
+        }
     }
 
 }

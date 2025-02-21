@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class MeshTrail : MonoBehaviour
 {
-    public float activeTime = 2f;
-
     [Header("Mesh Related")]
     public float meshRefreshRate = 0.1f;
     public float meshDestroyDelay = 3f;
@@ -18,8 +16,6 @@ public class MeshTrail : MonoBehaviour
     public float shaderVarRefreshRate = 0.05f;
 
     [Header("Dissolve")]
-    [SerializeField] private float noiseStrength = 0.25f;
-    [SerializeField] private float objectHeight = 1.0f;
     [SerializeField] private Material dissolveMat;
 
     private SkinnedMeshRenderer skinnedMeshRenderer;

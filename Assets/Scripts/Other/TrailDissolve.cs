@@ -5,11 +5,7 @@ using UnityEngine;
 public class TrailDissolve : MonoBehaviour
 {
     [SerializeField] private float noiseStrength = 0.1f;
-    [SerializeField] private float objectHeight = 4.0f;
-
     [SerializeField] private Material material;
-
-    [SerializeField] private float initalHeight;
 
     private float height;
 
@@ -21,14 +17,6 @@ public class TrailDissolve : MonoBehaviour
 
     private void Update()
     {
-        //var time = Time.time * Mathf.PI * noiseStrength;
-
-        //float height = transform.position.y + (objectHeight / 2.0f); // 초기 높이를 최상단으로 설정
-        //height -= Mathf.Abs(Mathf.Sin(time)) * objectHeight; // 투명화 효과 적용
-        //SetHeight(height);
-
-        //float t = transform.position.y - (objectHeight / 2.0f) + 0.1f;
-
         if(height > 0)
         {
             height -= Time.deltaTime;
